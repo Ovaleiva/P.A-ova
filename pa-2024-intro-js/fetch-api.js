@@ -15,16 +15,19 @@ peticion
         return resp.json();
     })
     .then(data => {
-        // Aquí ya tienes el JSON en la variable `data`
-        console.log(data);
 
-const info = data.map
+        const info = data.map(exchange => ({
+            nombreOperadora: exchange.name, 
+            cotizacionPorHora: exchange.volume_1hrs_usd, 
+            cotizacionDelDia: exchange.volume_1day_usd 
+        }));
 
-        // Ejemplo de cómo podrías mostrar los datos en el HTML
+        console.log(info);
+
         const pre = document.createElement('pre');
-        pre.textContent = JSON.stringify(data, null, 2); // Formatea el JSON con sangrías
+        pre.textContent = JSON.stringify(info, null, 2); 
         document.body.appendChild(pre);
     })
     .catch(error => {
-        console.warn('Error:', error);
+        console.warn('Error al obtener datos de la API: ', error);
     });
